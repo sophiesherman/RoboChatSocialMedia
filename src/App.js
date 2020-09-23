@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Post from './components/Post'
+import NewPostForm from './components/NewPostForm'
 // import data from '../server/sample.json';
 
-const posts = [
+const data = [
   {
     id: 1, 
     user: "Bean", 
@@ -25,9 +26,31 @@ const posts = [
 ]
 
 const App = () => {
+  const [posts, setPosts] = useState(data)
+  // const [newPost, setNewPost] = useState('')
+
+  // Sorting to show most recent first
+  posts.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+  console.log(posts);
+
+  const addPost = (newPost) => {
+        const newId = posts.length + 1
+        const date = new Date();
+        const currTimestamp = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 19).replace("T", " ");
+        const newPostObject = ([
+        {
+            id: newId, 
+            user: "Bean", 
+            timestamp: currTimestamp, 
+            content: newPost
+        }])
+      setPosts(posts.concat(newPostObject))
+  }
+
   return (
     <div>
      <h1 id="heading"> RoboChat </h1>
+      <NewPostForm updateFn={addPost}/>
       <Post posts={posts}/>
     </div>
   )
