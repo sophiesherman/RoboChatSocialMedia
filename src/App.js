@@ -1,35 +1,25 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Post from './components/Post'
 import NewPostForm from './components/NewPostForm'
-// import data from '../server/sample.json';
-
-const data = [
-  {
-    id: 1, 
-    user: "Bean", 
-    timestamp: "2020-07-15 07:25:28", 
-    content: "@Jimbulator Bean ngr ux urynauydyw inwjh oyafoji qpmia alitype yhtleeft viuhziw opya #ailbk #ynv xhejaa #gqxojaera #ram qajix ceomy ndbyejv"
-  },
-  {
-      id: 2,
-      user: "Bobalooba",
-      timestamp: "2020-07-15 06:35:15",
-      content: "Bobalooba uave gf yjjmqaim #ihj oafzf xe uelbvr #qdoycgi puy #fvism @Jimbulator wyfxaa hggqvuaoy cfla fffvzvlldn creeiutyf tzpjsr jeejkqog mwajbjon fyb yzfacvan hi doq nisvnxcoro ewwb eeoqoe"
-  },
-  {
-      id: 3,
-      user: "Jimbulator",
-      timestamp: "2020-07-15 05:45:02",
-      content: "Jimbulator yuyfhffy #onutqwyxz utzveaw xnhfahrbi ftuq cshcu rtjioooohx zbpaaxjct @Bobalooba xewaxkf tte ujr nkucuoeoi auukeo #kvu taaygvxdi bfeiz qeakavo tjiausvuay qzf udmgkg buawojvy",
-  }
-]
+import postService from './services/posts'
 
 const App = () => {
-  const [posts, setPosts] = useState(data)
-  // const [newPost, setNewPost] = useState('')
+  const [posts, setPosts] = useState([])
 
+  useEffect(() => {
+    console.log('effect')
+    postService
+      .getAll()
+      .then(initialPosts => {
+        console.log('promise fulfilled')
+        setPosts(initialPosts)
+      })
+  }, [])
+  console.log('render', posts.length, 'posts')
+ 
   // Sorting to show most recent first
+  console.log(posts);
   posts.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
   console.log(posts);
 
@@ -42,9 +32,19 @@ const App = () => {
             id: newId, 
             user: "Bean", 
             timestamp: currTimestamp, 
-            content: newPost
+            content: newPost,
+            likes: [
+              "Mandible",
+              "Barfoo",
+              "Jimbulator"
+            ]
         }])
-      setPosts(posts.concat(newPostObject))
+      // setPosts(posts.concat(newPostObject))
+      postService
+        .create(newPostObject)
+        .then(data => {
+          setPosts(posts.concat(data))
+        })
   }
 
   return (
