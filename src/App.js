@@ -2,10 +2,33 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Post from './components/Post'
 import NewPostForm from './components/NewPostForm'
-import postService from './services/posts'
+import postService from './service/posts'
 
 const App = () => {
-  const [posts, setPosts] = useState([])
+  let [posts, setPosts] = useState([])
+
+  const addLike = thing => {
+    console.log("addLike", thing)
+    const newThing = {...thing, likes: thing.likes.concat("Test")}
+    console.log("updated vote in item", newThing)
+    postService.update(newThing.id, newThing)
+        .then(data => {
+          // replace old thing in things array with newthing - match on id
+          console.log("got response", data)
+          const newThings = posts.map(
+              thing => thing.id !== data.id ? thing : data 
+            )
+            setPosts(newThings)
+        })
+        .then(()=> {
+          console.log("the next then")
+        })
+        .catch(
+          (error) => {
+            alert("There was an error!")
+          }
+        )
+  }
 
   useEffect(() => {
     console.log('effect')
@@ -33,11 +56,7 @@ const App = () => {
             user: "Bean", 
             timestamp: currTimestamp, 
             content: newPost,
-            likes: [
-              "Mandible",
-              "Barfoo",
-              "Jimbulator"
-            ]
+            likes: []
         }])
       // setPosts(posts.concat(newPostObject))
       postService
@@ -51,7 +70,7 @@ const App = () => {
     <div>
      <h1 id="heading"> RoboChat </h1>
       <NewPostForm updateFn={addPost}/>
-      <Post posts={posts}/>
+      <Post posts={posts} addLike={addLike}/>
     </div>
   )
 }

@@ -1,23 +1,23 @@
 import axios from 'axios'
-const baseURL = 'http://localhost:3001/posts'
+const baseURL = 'http://localhost:3001/'
 
 const getAll = () => {
-    return axios.get(baseURL)
+    return axios.get(baseURL + "posts")
                 .then(response => response.data)
 }
 
 const create = (newObject) => {
-    return axios.post(baseURL, newObject)
+    return axios.post(baseURL  + "posts", newObject)
                 .then(response => response.data)
 }
 
 const update = (id, newObject) => {
-    return axios.put(`${baseURL}/${id}`, newObject)
+    return axios.put(baseURL + "posts/" + id, newObject)
                 .then(response => response.data)
 }
 
 const del = (postid) => {
-    return axios.delete(baseURL + postid)
+    return axios.delete(baseURL + "posts/" + postid)
                 .then(response => response.data)
 }
 

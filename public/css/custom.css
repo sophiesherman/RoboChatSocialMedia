@@ -10,3 +10,18 @@
     margin-bottom: 20px;
     display: absolute;
 }
+
+#like-row {
+    padding-top: 10px;
+}
+#likes {
+    color: #9e9e9e;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    text-align: right;
+}
+
+#like-button {
+    padding: 0;
+    text-align: center;
+}
