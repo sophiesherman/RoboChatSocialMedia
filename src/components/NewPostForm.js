@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const NewPostForm = ({updateFn}) => {
+const NewPostForm = ({user, updateFn}) => {
     const initialState = ''
 
     const [newPost, setNewPost] = useState(initialState)
@@ -21,19 +21,26 @@ const NewPostForm = ({updateFn}) => {
         updateFn(newPost)
         setNewPost('')
     }
-    return (
-    <form onSubmit={formHandler}>
-          <textarea 
-            className="u-full-width" 
-            placeholder="What's on your mind?" 
-            maxLength="150"
-            id="post-input"
-            value={newPost}
-            onChange={handlePostIdChange}
-          />
-      <button type="submit" className="button-primary">Publish</button>
-    </form>
-    )
+    if (user){
+      return (
+        <form onSubmit={formHandler}>
+              <textarea 
+                className="u-full-width" 
+                placeholder="What's on your mind?" 
+                maxLength="150"
+                id="post-input"
+                value={newPost}
+                onChange={handlePostIdChange}
+              />
+          <button type="submit" className="button-primary">Publish</button>
+        </form>
+      )
+    } else {
+      return (
+        <p className="pleaseLogin"><i>Please login if you wish to post on RoboChat</i></p>
+      )
+    }
+  
   }
 
 export default NewPostForm;

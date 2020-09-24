@@ -72,9 +72,22 @@ app.put('/api/posts/:id', (request, response) => {
 app.put('/api/users/:id', (request, response) => {
     const id = request.params.id
     let user = users.find(user => user.id === id)
-    user = user.follows.push("Test")
+    user = user.follows.push(id)
     if (user) response.json(user)
     else response.status(404).end()
+
+    // const newlike = req.body
+
+    // const newLike = new Like({
+    //     content: req.body.content,
+    //     votes: req.body.votes,
+    // })
+
+    // Like.findByIdAndUpdate(req.params.id, newLike, {new: true})
+    // .then(result => {
+    //     res.json(result)
+    //     console.log("updated", result)
+    // })  
 })
 
 app.delete('/api/posts/:id', (request, response) => {
@@ -104,7 +117,7 @@ app.post('/api/login', async (request, response) => {
       const token = jwt.sign(userForToken, "secret")
 
       return response.status(200).json({token, id: user.id})
-      
+
     } else {
       return response.status(401).json({error: "Invalid username or password"})
     }

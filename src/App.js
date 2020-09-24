@@ -14,8 +14,8 @@ const App = () => {
   
   const addLike = thing => {
     console.log("addLike", thing)
-    if((thing.likes).includes("Test") === false) {
-      const newThing = {...thing, likes: thing.likes.push("Test")}
+    if((thing.likes).includes(user.id) === false) {
+      const newThing = {...thing, likes: thing.likes.push(user.id)}
       console.log("updated vote in item", newThing)
       postService.update(newThing)
           .then(data => {
@@ -41,8 +41,8 @@ const App = () => {
 
   const addFollow = thing => {
     console.log("addFollow", thing)
-    if((thing.follows).includes("Test") === false) {
-      const newThing = {...thing, follows: thing.follows.push("Test")}
+    if((thing.follows).includes(user.id) === false) {
+      const newThing = {...thing, follows: thing.follows.push(user.id)}
       console.log("updated vote in item", newThing)
       userService.update(newThing)
           .then(data => {
@@ -63,6 +63,33 @@ const App = () => {
           )
     } else {
       alert("You have already followed this user")
+    }
+  }
+
+  const removeFollow  = thing => {
+    console.log("removeFollow", thing)
+    if((thing.follows).includes(user.id) === true) {
+      const newThing = {...thing, follows: (thing.follows).filter(name => name !== user.id)}
+      console.log("removed follow in item", newThing)
+      userService.update(newThing)
+          .then(data => {
+            // replace old thing in things array with newthing - match on id
+            console.log("got response", data)
+            const newThings = users.map(
+                thing => thing.id !== data.id ? thing : data 
+              )
+              setUsers(newThings)
+          })
+          .then(()=> {
+            console.log(users)
+          })
+          .catch(
+            (error) => {
+              alert("There was an error!")
+            }
+          )
+    } else {
+      alert("You have already unfollowed this user")
     }
   }
 
@@ -109,14 +136,14 @@ const App = () => {
       </div>
       <div id="content">
         <div>
-            <LoginForm user={user} setUser={setUser}/>
+          <LoginForm user={user} setUser={setUser}/>
         </div>
         <div id = "profile-page">
-          <UserProfile userId="Jimbulator" users={users} posts={posts} addLike={addLike} addFollow={addFollow}/>
+          <UserProfile loggedInUser={user} userId="Jimbulator" users={users} posts={posts} addLike={addLike} addFollow={addFollow} removeFollow={removeFollow}/>
         </div>
         <div id="homepage">
-          <NewPostForm updateFn={addPost}/>
-          <Post posts={posts} addLike={addLike}/>
+          <NewPostForm user={user} updateFn={addPost}/>
+          <Post loggedInUser={user} posts={posts} addLike={addLike}/>
         </div>
       </div>
     </div>
