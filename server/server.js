@@ -5,6 +5,10 @@ const cors = require('cors')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
+app.use(cors())
+app.use(express.json())
+app.use(express.static('build'))
+
 // Load data from JSON file into memory
 const rawData = fs.readFileSync('server/sample.json')
 const data = JSON.parse(rawData)
@@ -15,9 +19,6 @@ let users = data.users
 const getUser = (username) => {
   return data.users.filter(u => u.id === username)[0]
 }
-
-app.use(cors())
-app.use(express.json())
 
 app.get('/', (request, response) => {
   response.send('<h1>Web Server</h1>')

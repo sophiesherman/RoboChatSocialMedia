@@ -3,9 +3,9 @@ import './App.css';
 import Post from './components/Post'
 import NewPostForm from './components/NewPostForm'
 import UserProfile from './components/UserProfile'
+import LoginForm from './components/LoginForm'
 import postService from './service/posts'
 import userService from './service/users'
-import LoginForm from './components/LoginForm';
 
 const App = () => {
   let [posts, setPosts] = useState([])

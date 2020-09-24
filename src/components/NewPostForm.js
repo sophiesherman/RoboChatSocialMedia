@@ -12,7 +12,6 @@ const NewPostForm = ({user, updateFn}) => {
 
     const formHandler = (event) => {
         event.preventDefault()
-
         if(newPost.length < 2) {
             alert('Post is too short')
             return false;
