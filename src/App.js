@@ -110,23 +110,28 @@ const App = () => {
   posts.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
 
   const addPost = (newPost) => {
-        const newId = posts.length + 1
-        const date = new Date();
-        const currTimestamp = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 19).replace("T", " ");
-        const newPostObject = ([
+        let newId = posts.length + 1
+        let date = new Date();
+        let currTimestamp = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 19).replace("T", " ");
+        let newPostObject = ([
         {
             id: newId, 
-            user: "Bean", 
+            user: user.id, 
             timestamp: currTimestamp, 
             content: newPost,
             likes: []
         }])
-      // setPosts(posts.concat(newPostObject))
       postService
         .create(newPostObject)
         .then(data => {
+          console.log("new post: ", data)
           setPosts(posts.concat(data))
         })
+        .catch(
+          (error) => {
+            alert("There was an error with posting!")
+          }
+        )
   }
 
   return (

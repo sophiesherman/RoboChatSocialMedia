@@ -18,6 +18,7 @@ const NewPostForm = ({user, updateFn}) => {
             return false;
         }
 
+        
         updateFn(newPost)
         setNewPost('')
     }

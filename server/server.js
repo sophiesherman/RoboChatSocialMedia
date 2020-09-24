@@ -50,21 +50,21 @@ app.get('/api/users/:id', (request, response) => {
 app.post('/api/posts', (request, response) => {
   console.log("POST")
   const post = request.body
-  posts = posts.push(post)
+  posts = posts.concat(post)
   response.json(post)
 })
 
 app.post('/api/users', (request, response) => {
     console.log("POST")
     const user = request.body
-    users = users.push(user)
+    users = users.concat(user)
     response.json(user)
   })
 
 app.put('/api/posts/:id', (request, response) => {
     const id = Number(request.params.id) 
     let post = posts.find(post => post.id === id)
-    post = post.likes.push("Test")
+    post = post.likes.concat("Test")
     if (post) response.json(post)
     else response.status(404).end()
 })
@@ -72,22 +72,9 @@ app.put('/api/posts/:id', (request, response) => {
 app.put('/api/users/:id', (request, response) => {
     const id = request.params.id
     let user = users.find(user => user.id === id)
-    user = user.follows.push(id)
+    user = user.follows.concat(id)
     if (user) response.json(user)
     else response.status(404).end()
-
-    // const newlike = req.body
-
-    // const newLike = new Like({
-    //     content: req.body.content,
-    //     votes: req.body.votes,
-    // })
-
-    // Like.findByIdAndUpdate(req.params.id, newLike, {new: true})
-    // .then(result => {
-    //     res.json(result)
-    //     console.log("updated", result)
-    // })  
 })
 
 app.delete('/api/posts/:id', (request, response) => {
