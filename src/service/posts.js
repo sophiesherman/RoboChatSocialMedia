@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseURL = 'http://localhost:3001/'
+const baseURL = '/api/'
 
 const getAll = () => {
     return axios.get(baseURL + "posts")
@@ -11,8 +11,8 @@ const create = (newObject) => {
                 .then(response => response.data)
 }
 
-const update = (id, newObject) => {
-    return axios.put(baseURL + "posts/" + id, newObject)
+const update = (thing) => {
+    return axios.put(baseURL + "posts/" + thing.id, thing)
                 .then(response => response.data)
 }
 

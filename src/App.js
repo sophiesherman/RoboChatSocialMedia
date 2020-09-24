@@ -2,49 +2,84 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import Post from './components/Post'
 import NewPostForm from './components/NewPostForm'
+import UserProfile from './components/UserProfile'
 import postService from './service/posts'
+import userService from './service/users'
 
 const App = () => {
   let [posts, setPosts] = useState([])
-
+  let [users, setUsers] = useState([])
+  // let [user, setUser] = useState([])
+  
   const addLike = thing => {
     console.log("addLike", thing)
-    const newThing = {...thing, likes: thing.likes.concat("Test")}
-    console.log("updated vote in item", newThing)
-    postService.update(newThing.id, newThing)
-        .then(data => {
-          // replace old thing in things array with newthing - match on id
-          console.log("got response", data)
-          const newThings = posts.map(
-              thing => thing.id !== data.id ? thing : data 
-            )
-            setPosts(newThings)
-        })
-        .then(()=> {
-          console.log("the next then")
-        })
-        .catch(
-          (error) => {
-            alert("There was an error!")
-          }
-        )
+    if((thing.likes).includes("Test") === false) {
+      const newThing = {...thing, likes: thing.likes.push("Test")}
+      console.log("updated vote in item", newThing)
+      postService.update(newThing)
+          .then(data => {
+            // replace old thing in things array with newthing - match on id
+            console.log("got response", data)
+            const newThings = posts.map(
+                thing => thing.id !== data.id ? thing : data 
+              )
+              setPosts(newThings)
+          })
+          .then(()=> {
+            console.log("the next then")
+          })
+          .catch(
+            (error) => {
+              alert("There was an error!")
+            }
+          )
+    } else {
+      alert("You have already liked this post")
+    }
+  }
+
+  const addFollow = thing => {
+    console.log("addFollow", thing)
+    if((thing.follows).includes("Test") === false) {
+      const newThing = {...thing, follows: thing.follows.push("Test")}
+      console.log("updated vote in item", newThing)
+      userService.update(newThing)
+          .then(data => {
+            // replace old thing in things array with newthing - match on id
+            console.log("got response", data)
+            const newThings = users.map(
+                thing => thing.id !== data.id ? thing : data 
+              )
+              setUsers(newThings)
+          })
+          .then(()=> {
+            console.log("the next then")
+          })
+          .catch(
+            (error) => {
+              alert("There was an error!")
+            }
+          )
+    } else {
+      alert("You have already followed this user")
+    }
   }
 
   useEffect(() => {
-    console.log('effect')
     postService
       .getAll()
       .then(initialPosts => {
-        console.log('promise fulfilled')
         setPosts(initialPosts)
       })
+    userService
+      .getAll()
+      .then(initialPosts => {
+        setUsers(initialPosts)
+      })
   }, [])
-  console.log('render', posts.length, 'posts')
- 
+  
   // Sorting to show most recent first
-  console.log(posts);
   posts.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
-  console.log(posts);
 
   const addPost = (newPost) => {
         const newId = posts.length + 1
@@ -68,9 +103,16 @@ const App = () => {
 
   return (
     <div>
-     <h1 id="heading"> RoboChat </h1>
-      <NewPostForm updateFn={addPost}/>
-      <Post posts={posts} addLike={addLike}/>
+      <div id="top-bar">
+        <h1 id="heading"> RoboChat </h1>
+      </div>
+      <div id = "profile-page">
+        <UserProfile userId="Jimbulator" users={users} posts={posts} addLike={addLike} addFollow={addFollow}/>
+      </div>
+      <div id="homepage">
+        <NewPostForm updateFn={addPost}/>
+        <Post posts={posts} addLike={addLike}/>
+      </div>
     </div>
   )
 }
