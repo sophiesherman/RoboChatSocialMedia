@@ -5,11 +5,12 @@ import NewPostForm from './components/NewPostForm'
 import UserProfile from './components/UserProfile'
 import postService from './service/posts'
 import userService from './service/users'
+import LoginForm from './components/LoginForm';
 
 const App = () => {
   let [posts, setPosts] = useState([])
   let [users, setUsers] = useState([])
-  // let [user, setUser] = useState([])
+  let [user, setUser] = useState(null)
   
   const addLike = thing => {
     console.log("addLike", thing)
@@ -103,10 +104,13 @@ const App = () => {
 
   return (
     <div>
-      <div id="top-bar" className="u-full-width">
+      <div id="top-bar" className="u-full-width row">
         <h1 id="heading"> RoboChat </h1>
       </div>
       <div id="content">
+        <div>
+            <LoginForm user={user} setUser={setUser}/>
+        </div>
         <div id = "profile-page">
           <UserProfile userId="Jimbulator" users={users} posts={posts} addLike={addLike} addFollow={addFollow}/>
         </div>
