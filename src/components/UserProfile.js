@@ -30,12 +30,12 @@ const UserProfile = ({userId, users, posts, addLike, addFollow}) => {
         return (
             <div>
                 <div className="row" id="profile">
-                    <h4> User Profile: {id} </h4>
+                    <h4> User Profile: @{id} </h4>
                     <div className="six columns">
                         <img src={avatar} alt="avatar" id="avatar" />
                     </div>
                     <div className="five columns" id="follows">
-                        <p> {follows.length} followers: </p>
+                        <p><i> {follows.length} followers </i></p>
                         <ul>
                             {follows.map((name, index) => (
                                 <li key={index}> 
@@ -43,7 +43,7 @@ const UserProfile = ({userId, users, posts, addLike, addFollow}) => {
                                 </li>
                             ))}
                         </ul>
-                        <button id="follow-button" onClick={() => addFollow(user[0])}>Follow</button>
+                        <button className="button-primary" id="follow-button" onClick={() => addFollow(user[0])}>Follow</button>
                     </div>
                 </div>
                 <br />

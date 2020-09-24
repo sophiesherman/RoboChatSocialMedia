@@ -103,15 +103,17 @@ const App = () => {
 
   return (
     <div>
-      <div id="top-bar">
+      <div id="top-bar" className="u-full-width">
         <h1 id="heading"> RoboChat </h1>
       </div>
-      <div id = "profile-page">
-        <UserProfile userId="Jimbulator" users={users} posts={posts} addLike={addLike} addFollow={addFollow}/>
-      </div>
-      <div id="homepage">
-        <NewPostForm updateFn={addPost}/>
-        <Post posts={posts} addLike={addLike}/>
+      <div id="content">
+        <div id = "profile-page">
+          <UserProfile userId="Jimbulator" users={users} posts={posts} addLike={addLike} addFollow={addFollow}/>
+        </div>
+        <div id="homepage">
+          <NewPostForm updateFn={addPost}/>
+          <Post posts={posts} addLike={addLike}/>
+        </div>
       </div>
     </div>
   )
