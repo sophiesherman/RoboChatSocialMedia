@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const Post = require("../models/posts")
+const User = require("../models/users")
 const mongoose = require("mongoose")
 mongoose.set('useFindAndModify', false);
 
@@ -15,9 +16,9 @@ const data = JSON.parse(rawData)
 let posts = data.posts
 let users = data.users
 
-const getUser = (username) => {
-  return data.users.filter(u => u.id === username)[0]
-}
+// const getUser = (username) => {
+//   return data.users.filter(u => u.id === username)[0]
+// }
 
 const getTokenFrom = request => {
   const authorization = request.get('authorization') 
@@ -38,14 +39,14 @@ apiRouter.get('/api/posts', (request, response) => {
 
   Post.find({})
   .then(result => {
-      console.log(result)
-      response.json(result)
+        response.json(result)
   })
   .catch(error => console.log(error))
 })
 
-apiRouter.get('/api/users', (request, response) => {
+apiRouter.get('/api/users', async (request, response) => {
     console.log("GOT")
+    const users = await User.find({})
     response.json(users)
   })
 
@@ -57,10 +58,11 @@ apiRouter.get('/api/posts/:id', (request, response) => {
 })
 
 apiRouter.get('/api/users/:id', (request, response) => {
-	const id = request.params.id
-	const user = users.find(user => user.id === id)
-	if (user) response.json(user)
-	else response.status(404).end()
+    User.find({id: request.params.id})
+    .then(user => {
+        response.json(user)
+    })
+    .catch(error => console.log(error))
 })
 
 apiRouter.post('/api/posts', (request, response) => {
@@ -87,13 +89,27 @@ apiRouter.post('/api/posts', (request, response) => {
     .then(result => {
         response.json(result)
     })
+    .catch(error => console.log(error))
 })
 
-apiRouter.post('/api/users', (request, response) => {
-    console.log("POST")
-    const user = request.body
-    users = users.concat(user)
-    response.json(user)
+apiRouter.post('/api/users', async (request, response) => {
+    console.log("POST USER")
+    const body = request.body
+
+    const saltRounds = 10
+    const passwordHash = await bcrypt.hash(body.password, saltRounds)
+
+    const avatar = "http://robohash.org/" + body.username
+    const newUser = new User({
+        id: body.username,
+        passwordHash: passwordHash,
+        avatar: avatar,
+        follows: []
+    })
+
+    const savedUser = await newUser.save()
+    
+    response.json(savedUser)
   })
 
 apiRouter.put('/api/posts/:id', (request, response) => {
@@ -144,29 +160,29 @@ apiRouter.delete('/api/posts/:id', (request, response, next) => {
       response.status(204).end()
     })
     .catch(error => next(error))
-    // const id = Number(request.params.id)
-    // console.log('the passed ID is: ', id)
-    // posts = posts.filter(post => post.id !== id)
-    // response.status(404).end()
+})
+
+apiRouter.delete('/api/users/:id', async (request, response, next) => {
+  await User.findOneAndDelete({ id: request.params.id })
+  .then(result => {
+    response.status(204).end()
+  })
+  .catch(error => next(error))
 })
 
 // handle post request for login with {username, password}
 apiRouter.post('/api/login', async (request, response) => {
-    const {username, password} = request.body
+    const body = request.body
 
-    const user = getUser(username)
-    
+    const user = await User.findOne({ id: body.username })
     if (!user) {
       return response.status(401).json({error: "Invalid username or password"})
     }
-
-    if (await bcrypt.compare(password, user.password)) {
+    if (bcrypt.compare(await body.password, user.passwordHash)) {
       const userForToken = {
         id: user.id
       }
-
       const token = jwt.sign(userForToken, process.env.SECRET)
-
       return response.status(200).json({token, id: user.id})
 
     } else {

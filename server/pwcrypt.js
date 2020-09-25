@@ -8,5 +8,3 @@ const data = JSON.parse(rawData)
 data.users.map(u => {
     const pwcrypt = bcrypt.hash(u.password, 10).then(result => console.log(u.id, result))
 })
-
-

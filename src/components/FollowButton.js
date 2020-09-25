@@ -1,14 +1,14 @@
 import React from 'react';
 
-const FollowButton = ({ loggedInUser, addFollow, removeFollow, user }) => {
+const FollowButton = ({ loggedInUser, changeFollow, user }) => {
     if(loggedInUser){
         if((user.follows).includes(loggedInUser.id) === false){
             return (
-                <button className="button-primary" id="follow-button" onClick={() => addFollow(user)}>Follow</button>
+                <button className="button-primary" id="follow-button" onClick={() => changeFollow(user)}>Follow</button>
             )
         } else {
             return (
-                <button className="button-primary" id="follow-button" onClick={() => removeFollow(user)}>Unfollow</button>
+                <button className="button-primary" id="follow-button" onClick={() => changeFollow(user)}>Unfollow</button>
             )
         }    
     } else {

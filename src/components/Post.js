@@ -7,7 +7,7 @@ const Post = ({loggedInUser, posts, changeLike}) => {
         <ul>
           {posts.map((post) => (
             <li id="individual-post" key={post.id}> 
-              <div className="two column"><b>@{post.user}</b> <i>{post.timestamp} {post.id}</i></div>
+              <div className="two column"><b><a href='http://localhost:3000/users/'>@{post.user}</a></b> <i>{post.timestamp}</i></div>
               <div>{post.content}</div> 
               <div className="row" id="like-row">
                 <div className="eight columns" id="likes">

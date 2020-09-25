@@ -2,7 +2,14 @@ import React from 'react';
 import Post from './Post'
 import FollowButton from './FollowButton'
 
-const UserProfile = ({ loggedInUser, userId, users, posts, changeLike, addFollow, removeFollow }) => {
+import {
+    // ...
+    useParams
+  } from "react-router-dom"
+  
+const UserProfile = ({ loggedInUser, users, posts, changeLike, changeFollow }) => {
+    const userId = useParams().id
+
     const getUser = (id) => {
         const foundUser = users.find(user => user.id === id)
         if (foundUser) {
@@ -46,7 +53,7 @@ const UserProfile = ({ loggedInUser, userId, users, posts, changeLike, addFollow
                                 </li>
                             ))}
                         </ul>
-                        <FollowButton loggedInUser={loggedInUser} addFollow={addFollow} removeFollow={removeFollow} user={user[0]} />
+                        <FollowButton loggedInUser={loggedInUser} changeFollow={changeFollow} user={user[0]} />
                     </div>
                 </div>
                 <div className="eight columns">

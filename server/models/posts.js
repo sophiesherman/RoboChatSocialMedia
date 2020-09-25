@@ -13,7 +13,6 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     })
 
 const postSchema = new mongoose.Schema({
-    // id: Number,
     user: String,
     timestamp: String,
     content: String,
@@ -26,9 +25,10 @@ postSchema.set('toJSON', {
       delete returnedObject._id
       delete returnedObject.__v
     }
-  })
+})
 
 const Post = mongoose.model("Post", postSchema)
 
 module.exports = Post
+
 

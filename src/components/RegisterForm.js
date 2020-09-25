@@ -1,40 +1,51 @@
-/* eslint-disable react/prop-types */
 import React, {useState} from 'react'
 import userService from '../service/users'
 
-const LoginForm = ({user, setUser}) => {
+const RegisterForm = ({user, setUser}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
     const formHandler = (event) => {
       event.preventDefault()
       
-      userService.login({username, password})
+      userService.register({username, password})
         .then(data => {
             setUser(data)
         }
         )
         .catch(error => {
-            alert("Incorrect username or password")
+            alert("Use a different username or password")
         })
     }
 
-    if (user) {    
+    const deleteProfile = (user) => {
+        console.log(user)
+        userService.del(user)
+        .then(data => {
+            alert("Your profile has been deleted successfully")
+            setUser(null)
+        }
+        )
+        .catch(error => {
+            alert("Cannot delete your profile")
+        })
+    }
+  
+    if (user) {
         return (
-            <div>
                 <div className="row webForm loginSection">
                     <div className="nine columns">
-                        <p>Logged in as @{user.id}</p>
+                        <p>You have registered as @{user.id}</p>
                     </div>
                     <div className="three columns">
-                        <button onClick={() => setUser(null)}>Logout</button>
+                        <button id="login-button" onClick={() => deleteProfile(user.id)}>Delete my profile</button>
                     </div>
                 </div>
-            </div>
         )
     } else {
         return (
             <div className="loginSection">
+                <h4> Register: </h4>
                 <form onSubmit={formHandler}>
                         <div className="row">
                             <div className="three columns">
@@ -46,7 +57,7 @@ const LoginForm = ({user, setUser}) => {
                                 <input className="u-full-width" name="password" type="password" onChange={e => setPassword(e.target.value)} />
                             </div>
                             <div className="three columns" id="login-button">
-                                <input type="submit" value="Login"/>
+                                <input type="submit" value="Register"/>
                             </div>
                         </div>
                 </form> 
@@ -55,4 +66,4 @@ const LoginForm = ({user, setUser}) => {
     }
 }
 
-  export default LoginForm
+  export default RegisterForm

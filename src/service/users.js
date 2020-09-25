@@ -23,10 +23,14 @@ const del = (id) => {
 }
 
 const login = ({username, password}) => {
-    console.log("Logged in as", username)
     return axios.post(baseURL + 'login', {username, password})
                 .then(response => response.data)
 }
 
+const register = ({username, password}) => {
+    return axios.post(baseURL + 'users', {username, password})
+                .then(response => response.data)
+}
 
-export default { getAll, create, update, del, login}
+
+export default { getAll, create, update, del, login, register}
