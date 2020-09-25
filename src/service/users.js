@@ -23,7 +23,7 @@ const del = (id) => {
 }
 
 const login = ({username, password}) => {
-    console.log("POST", baseURL + 'login')
+    console.log("Logged in as", username)
     return axios.post(baseURL + 'login', {username, password})
                 .then(response => response.data)
 }

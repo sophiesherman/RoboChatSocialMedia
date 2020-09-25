@@ -108,8 +108,6 @@ apiRouter.post('/api/login', async (request, response) => {
     }
 
     if (await bcrypt.compare(password, user.password)) {
-      console.log("Password is good!")
-
       const userForToken = {
         id: user.id
       }

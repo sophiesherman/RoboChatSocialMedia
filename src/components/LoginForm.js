@@ -8,16 +8,14 @@ const LoginForm = ({user, setUser}) => {
 
     const formHandler = (event) => {
       event.preventDefault()
-      console.log("Form Submitted", username, password)
       
       userService.login({username, password})
         .then(data => {
-            console.log("Success:", data)
             setUser(data)
         }
         )
         .catch(error => {
-            console.log("Error:", error)
+            alert("Incorrect username or password")
         })
     }
   
