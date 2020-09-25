@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const fs = require('fs')
 const app = express()
@@ -9,6 +10,8 @@ app.use(cors())
 app.use(express.json())
 app.use(express.static('build'))
 
+const SECRET = process.env.SECRET
+
 // Load data from JSON file into memory
 const rawData = fs.readFileSync('server/sample.json')
 const data = JSON.parse(rawData)
@@ -19,6 +22,14 @@ let users = data.users
 const getUser = (username) => {
   return data.users.filter(u => u.id === username)[0]
 }
+
+const getTokenFrom = request => {
+  const authorization = request.get('authorization') 
+  if (authorization && authorization.toLowerCase().startsWith('bearer ')) { 
+         return authorization.substring(7)  
+      }  
+  return null
+} 
 
 app.get('/', (request, response) => {
   response.send('<h1>Web Server</h1>')
@@ -51,6 +62,12 @@ app.get('/api/users/:id', (request, response) => {
 app.post('/api/posts', (request, response) => {
   console.log("POST")
   const post = request.body
+  const token = getTokenFrom(request)
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+
   posts = posts.concat(post)
   response.json(post)
 })
@@ -102,7 +119,7 @@ app.post('/api/login', async (request, response) => {
         id: user.id
       }
 
-      const token = jwt.sign(userForToken, "secret")
+      const token = jwt.sign(userForToken, process.env.SECRET)
 
       return response.status(200).json({token, id: user.id})
 

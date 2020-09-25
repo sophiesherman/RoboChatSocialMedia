@@ -121,15 +121,16 @@ const App = () => {
             content: newPost,
             likes: []
         }])
+
       postService
-        .create(newPostObject)
+        .create(newPostObject, user)
         .then(data => {
           console.log("new post: ", data)
           setPosts(posts.concat(data))
         })
         .catch(
           (error) => {
-            alert("There was an error with posting!")
+            alert(error)
           }
         )
   }
