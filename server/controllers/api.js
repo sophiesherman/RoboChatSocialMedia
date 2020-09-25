@@ -2,6 +2,7 @@ const express = require('express')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
+const Post = require("../models/posts")
 
 const SECRET = process.env.SECRET
 
@@ -32,7 +33,11 @@ apiRouter.get('/', (request, response) => {
 
 apiRouter.get('/api/posts', (request, response) => {
   console.log("GOT")
-  response.json(posts)
+
+  Post.find({}).then(result => {
+      console.log(result)
+      response.json(result)
+  })
 })
 
 apiRouter.get('/api/users', (request, response) => {
@@ -55,16 +60,29 @@ apiRouter.get('/api/users/:id', (request, response) => {
 })
 
 apiRouter.post('/api/posts', (request, response) => {
-  console.log("POST")
-  const post = request.body
-  const token = getTokenFrom(request)
-  const decodedToken = jwt.verify(token, SECRET)
-  if (!token || !decodedToken.id) {
-    return response.status(401).json({ error: 'token missing or invalid' })
-  }
+    console.log("POST")
+    const token = getTokenFrom(request)
+    console.log("Token ", token)
+    const decodedToken = jwt.verify(token, SECRET)
+    if (!token || !decodedToken.id) {
+        return response.status(401).json({ error: 'token missing or invalid' })
+    }
 
-  posts = posts.concat(post)
-  response.json(post)
+    const body = request.body
+
+    let date = new Date();
+    let currTimestamp = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, 19).replace("T", " ");
+
+    const newPost = new Post({
+        user: body.user,
+        timestamp: currTimestamp,
+        content: body.content,
+        likes: []
+    })
+    newPost.save()
+    .then(result => {
+        response.json(result)
+    })
 })
 
 apiRouter.post('/api/users', (request, response) => {

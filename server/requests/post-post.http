@@ -1,0 +1,7 @@
+POST http://localhost:3001/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IkJvYmFsb29iYSIsImlhdCI6MTYwMTAwMzI0NX0.-iV8WNtsU5pGHQ8gws7NpzyA9rQdiZax-jB5wdc0soI
+
+{
+    "content": "Bobalooba",
+}
