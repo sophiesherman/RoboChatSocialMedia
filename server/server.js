@@ -63,7 +63,7 @@ app.post('/api/posts', (request, response) => {
   console.log("POST")
   const post = request.body
   const token = getTokenFrom(request)
-  const decodedToken = jwt.verify(token, process.env.SECRET)
+  const decodedToken = jwt.verify(token, SECRET)
   if (!token || !decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
