@@ -12,15 +12,12 @@ const App = () => {
   let [users, setUsers] = useState([])
   let [user, setUser] = useState(null)
   
-  const addLike = thing => {
-    console.log("addLike", thing)
+  const changeLike = thing => {
     if((thing.likes).includes(user.id) === false) {
-      const newThing = {...thing, likes: thing.likes.push(user.id)}
-      console.log("updated vote in item", newThing)
+      const newThing = {...thing, likes: thing.likes.concat(user.id)}
       postService.update(newThing)
           .then(data => {
             // replace old thing in things array with newthing - match on id
-            console.log("got response", data)
             const newThings = posts.map(
                 thing => thing.id !== data.id ? thing : data 
               )
@@ -35,7 +32,23 @@ const App = () => {
             }
           )
     } else {
-      alert("You have already liked this post")
+      const newThing = {...thing, likes: thing.likes.filter(name => name !== user.id)}
+      postService.update(newThing)
+          .then(data => {
+            // replace old thing in things array with newthing - match on id
+            const newThings = posts.map(
+                thing => thing.id !== data.id ? thing : data 
+              )
+              setPosts(newThings)
+          })
+          .then(()=> {
+            console.log("the next then")
+          })
+          .catch(
+            (error) => {
+              alert("There was an error!")
+            }
+          )
     }
   }
 
@@ -133,11 +146,11 @@ const App = () => {
           <LoginForm user={user} setUser={setUser}/>
         </div>
         <div id = "profile-page">
-          <UserProfile loggedInUser={user} userId="Jimbulator" users={users} posts={posts} addLike={addLike} addFollow={addFollow} removeFollow={removeFollow}/>
+          <UserProfile loggedInUser={user} userId="Jimbulator" users={users} posts={posts} changeLike={changeLike} addFollow={addFollow} removeFollow={removeFollow}/>
         </div>
         <div id="homepage">
           <NewPostForm user={user} updateFn={addPost}/>
-          <Post loggedInUser={user} posts={posts} addLike={addLike}/>
+          <Post loggedInUser={user} posts={posts} changeLike={changeLike}/>
         </div>
       </div>
     </div>

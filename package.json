@@ -30,7 +30,6 @@
     "dev": "nodemon server/server.js",
     "deploy": "git push heroku master"
   },
-  "proxy": "http://localhost:3001",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -48,5 +47,6 @@
   },
   "devDependencies": {
     "json-server": "^0.16.1"
-  }
+  },
+  "proxy": "http://localhost:3001"
 }

@@ -16,7 +16,6 @@ const create = (newObject, user) => {
 }
 
 const update = (thing) => {
-    console.log("thing post: ", thing)
     return axios.put(baseURL + "posts/" + thing.id, thing)
                 .then(response => response.data)
 }

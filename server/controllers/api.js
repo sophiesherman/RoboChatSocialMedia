@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const Post = require("../models/posts")
+const mongoose = require("mongoose")
+mongoose.set('useFindAndModify', false);
 
 const SECRET = process.env.SECRET
 
@@ -34,10 +36,12 @@ apiRouter.get('/', (request, response) => {
 apiRouter.get('/api/posts', (request, response) => {
   console.log("GOT")
 
-  Post.find({}).then(result => {
+  Post.find({})
+  .then(result => {
       console.log(result)
       response.json(result)
   })
+  .catch(error => console.log(error))
 })
 
 apiRouter.get('/api/users', (request, response) => {
@@ -93,14 +97,40 @@ apiRouter.post('/api/users', (request, response) => {
   })
 
 apiRouter.put('/api/posts/:id', (request, response) => {
-    const id = Number(request.params.id) 
-    let post = posts.find(post => post.id === id)
-    post = post.likes.concat("User")
-    if (post) response.json(post)
-    else response.status(404).end()
+    const body = request.body
+    const newPost = {
+        user: body.user,
+        timestamp: body.timestamp,
+        content: body.content,
+        likes: body.likes
+    }
+    Post.findByIdAndUpdate(request.params.id, newPost, {new: true})
+    .then(result => {
+        response.json(result)
+    })
+    .catch(error => console.log("ERROR:", error))  
 })
 
 apiRouter.put('/api/users/:id', (request, response) => {
+    // const body = request.body
+    // console.log("PARAMS: ", request.params)
+    // console.log("PUT: ", body)
+    // console.log("FOLLOWS: ", body.follows)   
+    // const newUser = {
+    //     user: body.user,
+    //     timestamp: body.timestamp,
+    //     content: body.content,
+    //     likes: body.likes
+    // }
+    // console.log("IDDDDDD: ", request.params.id)
+    // Post.findByIdAndUpdate(request.params.id, newPost, {new: true})
+    // .then(result => {
+    //     response.json(result)
+    //     console.log("updated", result)
+    // })
+    // .catch(error => console.log("ERROR:", error))  
+
+
     const id = request.params.id
     let user = users.find(user => user.id === id)
     user = user.follows.concat(id)
@@ -108,11 +138,16 @@ apiRouter.put('/api/users/:id', (request, response) => {
     else response.status(404).end()
 })
 
-apiRouter.delete('/api/posts/:id', (request, response) => {
-    const id = Number(request.params.id)
-    console.log('the passed ID is: ', id)
-    posts = posts.filter(post => post.id !== id)
-    response.status(404).end()
+apiRouter.delete('/api/posts/:id', (request, response, next) => {
+    Post.findByIdAndRemove(request.params.id)
+    .then(result => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
+    // const id = Number(request.params.id)
+    // console.log('the passed ID is: ', id)
+    // posts = posts.filter(post => post.id !== id)
+    // response.status(404).end()
 })
 
 // handle post request for login with {username, password}

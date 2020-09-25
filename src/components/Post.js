@@ -1,13 +1,13 @@
 import React from 'react';
 import LikeButton from './LikeButton'
 
-const Post = ({loggedInUser, posts, addLike}) => {
+const Post = ({loggedInUser, posts, changeLike}) => {
     return (
       <div className="row">
         <ul>
           {posts.map((post) => (
             <li id="individual-post" key={post.id}> 
-              <div className="two column"><b>@{post.user}</b> <i>{post.timestamp}</i></div>
+              <div className="two column"><b>@{post.user}</b> <i>{post.timestamp} {post.id}</i></div>
               <div>{post.content}</div> 
               <div className="row" id="like-row">
                 <div className="eight columns" id="likes">
@@ -18,7 +18,7 @@ const Post = ({loggedInUser, posts, addLike}) => {
                             )}
                         </p>
                     </div>
-                    <LikeButton loggedInUser={loggedInUser} post={post} addLike={addLike}/>
+                    <LikeButton loggedInUser={loggedInUser} post={post} changeLike={changeLike}/>
               </div>
             </li>
           ))}

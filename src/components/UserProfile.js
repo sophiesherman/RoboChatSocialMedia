@@ -2,7 +2,7 @@ import React from 'react';
 import Post from './Post'
 import FollowButton from './FollowButton'
 
-const UserProfile = ({ loggedInUser, userId, users, posts, addLike, addFollow, removeFollow }) => {
+const UserProfile = ({ loggedInUser, userId, users, posts, changeLike, addFollow, removeFollow }) => {
     const getUser = (id) => {
         const foundUser = users.find(user => user.id === id)
         if (foundUser) {
@@ -50,7 +50,7 @@ const UserProfile = ({ loggedInUser, userId, users, posts, addLike, addFollow, r
                     </div>
                 </div>
                 <div className="eight columns">
-                    <Post loggedInUser={loggedInUser} posts={userPosts} addLike={addLike} />
+                    <Post loggedInUser={loggedInUser} posts={userPosts} changeLike={changeLike} />
                 </div>
             </div>
         )
