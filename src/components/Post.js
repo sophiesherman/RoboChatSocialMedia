@@ -19,7 +19,19 @@ const Post = ({ loggedInUser, posts, changeLike, setPosts }) => {
                     <b><UserLink user={post.user}/></b> <i>{post.timestamp}</i>
                   </div>
                   <div>
-                    {post.content}
+                    {post.content.split(" ").map((word, i) => {
+                        if (word.startsWith("@")) {
+                            return (
+                            <span key={word.index}><a href={"/users/" + word.substring(1)}>{word}</a> </span>
+                            )
+                        } else if (word.startsWith("#")) {
+                              return (
+                              <span key={word.index}><a href={"/hashtag/" + word.substring(1)}>{word}</a> </span>
+                              )
+                        } else {
+                            return ( word + " ")
+                        }
+                    })}
                   </div> 
                 </div> 
                 <div className="row" id="like-row">

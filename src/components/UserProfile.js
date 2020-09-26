@@ -35,7 +35,6 @@ const UserProfile = ({ status, loggedInUser, users, posts, changeLike, changeFol
     const user = getUser(userId)
 
     if (status === "other") {
-        console.log(userId)
         //If user profile exists
         if (user !== "User not found") {
             const id = user[0].id
@@ -105,10 +104,11 @@ const UserProfile = ({ status, loggedInUser, users, posts, changeLike, changeFol
                                     </li>
                                 ))}
                             </ul>
+                            {/* <FollowButton loggedInUser={loggedInUser} changeFollow={changeFollow} user={user[0]} /> */}
                         </div>
                     </div>
                     <div className="eight columns">
-                        <Post status={status} loggedInUser={loggedInUser} posts={userPosts} changeLike={changeLike} setPosts={setPosts}/>
+                        <Post status={status} loggedInUser={loggedInUser} posts={userPosts} changeLike={changeLike} />
                     </div>
                 </div>
             )

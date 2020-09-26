@@ -14,7 +14,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     })
 
 const userSchema = new mongoose.Schema({
-    id: String,
+    id: {type: String, unique: true},
     passwordHash: String,
     avatar: String,
     follows: Array
