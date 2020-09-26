@@ -146,11 +146,6 @@ apiRouter.put('/api/users/:id', (request, response) => {
         console.log("updated", result)
     })
     .catch(error => console.log("ERROR:", error))  
-    // const id = request.params.id
-    // let user = users.find(user => user.id === id)
-    // user = user.follows.concat(id)
-    // if (user) response.json(user)
-    // else response.status(404).end()
 })
 
 apiRouter.delete('/api/posts/:id', (request, response, next) => {
