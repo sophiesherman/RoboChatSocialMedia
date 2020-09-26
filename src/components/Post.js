@@ -2,6 +2,7 @@ import React from 'react';
 import LikeButton from './LikeButton'
 import DeleteButton from './DeleteButton'
 import UserAvatar from './UserAvatar'
+import UserLink from './UserLink'
 
 const Post = ({ loggedInUser, posts, changeLike, setPosts }) => {
     return (
@@ -15,7 +16,7 @@ const Post = ({ loggedInUser, posts, changeLike, setPosts }) => {
                 </div>
                 <div className="eight columns"> 
                   <div>
-                    <b><a href='http://localhost:3000/users/'>@{post.user}</a></b> <i>{post.timestamp}</i>
+                    <b><UserLink user={post.user}/></b> <i>{post.timestamp}</i>
                   </div>
                   <div>
                     {post.content}

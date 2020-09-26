@@ -146,7 +146,7 @@ const App = () => {
               <nav className="topNav">
                 <Link className="navItem" to="/">Home</Link>
                 <Link className="navItem" to="/posts ">All Posts</Link>
-                <Link className="navItem" to="/users ">Users</Link>
+                <Link className="navItem" to="/users">Users</Link>
                 <Link className="navItem" to="/login">Login</Link>
                 <Link className="navItem" to="/my-profile">Profile</Link>
               </nav>
@@ -172,7 +172,9 @@ const App = () => {
               <div className="row">
                 <LoginForm user={user} setUser={setUser} />
               </div>
-              <p> To be done </p>
+              <div className="row">
+                <Users users={users}/>
+              </div>
             </Route>
             <Route path="/login">
               <div className="loginSection">
@@ -198,24 +200,5 @@ const App = () => {
     </div >
   );
 }
-// <div>
-//   <div id="top-bar" className="u-full-width row">
-//     <h1 id="heading"> RoboChat </h1>
-//   </div>
-//   <div id="content">
-//     <div>
-//       <LoginForm user={user} setUser={setUser}/>
-//       <RegisterForm user={user} setUser={setUser}/>
-//     </div>
-//     <div id = "profile-page">
-//       <UserProfile loggedInUser={user} userId="Jimbulator" users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow}/>
-//     </div>
-//     <div id="homepage">
-//       <NewPostForm user={user} updateFn={addPost}/>
-//       <Post loggedInUser={user} posts={posts} changeLike={changeLike}/>
-//     </div>
-//   </div>
-// </div> 
-// }
 
 export default App;
