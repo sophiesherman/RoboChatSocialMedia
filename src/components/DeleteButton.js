@@ -9,9 +9,6 @@ const DeleteButton = ({ loggedInUser, post, setPosts}) => {
             alert("Your post has been deleted successfully")
             setPosts(data)
           })
-          .then(data => {
-            window.location.reload()
-          })
           .catch(
             (error) => {
               alert(error)

@@ -13,9 +13,6 @@ const RegisterForm = ({user, setUser, setUsers}) => {
             setUser(data)
             alert("You may login with your new account")
         })
-        .then(data => {
-            window.location.reload()
-        })
         .catch(error => {
             alert("Use a different username or password")
         })
