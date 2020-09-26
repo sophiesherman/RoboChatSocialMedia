@@ -147,7 +147,6 @@ const App = () => {
                 <Link className="navItem" to="/">Home</Link>
                 <Link className="navItem" to="/posts ">All Posts</Link>
                 <Link className="navItem" to="/users">Users</Link>
-                <Link className="navItem" to="/login">Login</Link>
                 <Link className="navItem" to="/my-profile">Profile</Link>
               </nav>
             </div>
@@ -159,7 +158,7 @@ const App = () => {
               <div className="row">
                 <LoginForm user={user} setUser={setUser} />
               </div>
-              <UserProfile status="other" loggedInUser={user} users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow} setPosts={setPosts} />
+              <UserProfile status="other" loggedInUser={user} users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow} setPosts={setPosts}/>
             </Route>
             <Route path="/posts">
               <div className="row">
@@ -176,13 +175,11 @@ const App = () => {
                 <Users users={users}/>
               </div>
             </Route>
-            <Route path="/login">
+            <Route path="/my-profile">
               <div className="loginSection">
                 <LoginForm user={user} setUser={setUser} />
                 <RegisterForm user={user} setUser={setUser} setUsers={setUsers}/>
               </div>
-            </Route>
-            <Route path="/my-profile">
               <div>
                 <UserProfile status="personal" loggedInUser={user} users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow} setPosts={setPosts}/>
               </div>

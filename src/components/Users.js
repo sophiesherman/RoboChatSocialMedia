@@ -8,10 +8,10 @@ const Users = ({ users, loggedInUser, setUser }) => {
           {users.map((user) => (
             <li id="individual-user" key={user.id}> 
             <div className="row">
-                <div className="two columns">
+                <div className="five columns">
                     <img src={user.avatar} alt="avatar" id="mini-avatar" />     
                 </div>
-                <div className="eight columns"> 
+                <div className="seven columns"> 
                   <div>
                     <UserLink user={user.id}/>
                   </div>

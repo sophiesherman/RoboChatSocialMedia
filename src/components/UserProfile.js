@@ -123,7 +123,7 @@ const UserProfile = ({ status, loggedInUser, users, posts, changeLike, changeFol
     } else if (status === "personal" && loggedInUser === null) {
             return (
                 <div>
-                    <p><i><a href="http://localhost:3000/login"> Please click here to login or register to view your profile </a></i></p>
+                    <p><i> Please login or register to view your profile </i></p>
                 </div>
             )
     } else {
