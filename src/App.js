@@ -142,29 +142,30 @@ const App = () => {
               <h1 id="heading"> RoboChat </h1>
             </div>
             <div className="eight columns">
-              <nav id="topNav">
+              <nav className="topNav">
                 <Link className="navItem" to="/">Home</Link>
                 <Link className="navItem" to="/posts ">All Posts</Link>
                 <Link className="navItem" to="/users ">Users</Link>
                 <Link className="navItem" to="/login">Login</Link>
+                <Link className="navItem" to="/my-profile">Profile</Link>
               </nav>
             </div>
           </div>
         </div>
-        <div id="content">
+        <div className="content">
           <Switch>
             <Route path="/users/:id">
               <div className="row">
                 <LoginForm user={user} setUser={setUser} />
               </div>
-              <UserProfile loggedInUser={user} users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow} />
+              <UserProfile status="other" loggedInUser={user} users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow} setPosts={setPosts} />
             </Route>
             <Route path="/posts">
               <div className="row">
                 <LoginForm user={user} setUser={setUser} />
               </div>
               <NewPostForm user={user} updateFn={addPost} />
-              <Post loggedInUser={user} posts={posts} changeLike={changeLike} />
+              <Post loggedInUser={user} posts={posts} changeLike={changeLike} setPosts={setPosts}/>
             </Route>
             <Route path="/users">
               <div className="row">
@@ -174,17 +175,21 @@ const App = () => {
             </Route>
             <Route path="/login">
               <div className="loginSection">
-                <h4> Login: </h4>
                 <LoginForm user={user} setUser={setUser} />
-                <RegisterForm user={user} setUser={setUser} />
+                <RegisterForm user={user} setUser={setUser} setUsers={setUsers}/>
               </div>
             </Route>
+            <Route path="/my-profile">
+              <div>
+                <UserProfile status="personal" loggedInUser={user} users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow} setPosts={setPosts}/>
+              </div>
+            </Route> 
             <Route path="/">
               <div className="row">
                 <LoginForm user={user} setUser={setUser} />
               </div>
               <NewPostForm user={user} updateFn={addPost} />
-              <Post loggedInUser={user} posts={posts} changeLike={changeLike} />
+              <Post loggedInUser={user} posts={posts} changeLike={changeLike} setPosts={setPosts}/>
             </Route>
           </Switch>
         </div>

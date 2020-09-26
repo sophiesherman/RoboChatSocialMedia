@@ -157,9 +157,12 @@ apiRouter.put('/api/users/:id', (request, response) => {
 apiRouter.delete('/api/posts/:id', (request, response, next) => {
     Post.findByIdAndRemove(request.params.id)
     .then(result => {
-      response.status(204).end()
+      Post.find({})
+      .then(result => {
+        response.json(result)
     })
     .catch(error => next(error))
+    })
 })
 
 apiRouter.delete('/api/users/:id', async (request, response, next) => {

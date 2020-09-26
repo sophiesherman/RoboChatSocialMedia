@@ -23,10 +23,10 @@ const LoginForm = ({user, setUser}) => {
         return (
             <div>
                 <div className="row webForm loginSection">
-                    <div className="nine columns">
+                    <div className="eight columns">
                         <p>Logged in as @{user.id}</p>
                     </div>
-                    <div className="three columns">
+                    <div className="four columns">
                         <button onClick={() => setUser(null)}>Logout</button>
                     </div>
                 </div>

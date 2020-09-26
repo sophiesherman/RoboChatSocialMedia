@@ -1,7 +1,8 @@
 import React from 'react';
 import LikeButton from './LikeButton'
+import DeleteButton from './DeleteButton'
 
-const Post = ({loggedInUser, posts, changeLike}) => {
+const Post = ({ loggedInUser, posts, changeLike, setPosts}) => {
     return (
       <div className="row">
         <ul>
@@ -19,6 +20,7 @@ const Post = ({loggedInUser, posts, changeLike}) => {
                         </p>
                     </div>
                     <LikeButton loggedInUser={loggedInUser} post={post} changeLike={changeLike}/>
+                    <DeleteButton loggedInUser={loggedInUser} post={post} setPosts={setPosts}/>
               </div>
             </li>
           ))}

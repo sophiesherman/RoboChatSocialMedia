@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import userService from '../service/users'
 
-const RegisterForm = ({user, setUser}) => {
+const RegisterForm = ({user, setUser, setUsers}) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
@@ -22,6 +22,7 @@ const RegisterForm = ({user, setUser}) => {
         console.log(user)
         userService.del(user)
         .then(data => {
+            setUsers(data)
             alert("Your profile has been deleted successfully")
             setUser(null)
         }
@@ -34,18 +35,18 @@ const RegisterForm = ({user, setUser}) => {
     if (user) {
         return (
                 <div className="row webForm loginSection">
-                    <div className="nine columns">
+                    <div className="eight columns">
                         <p>You have registered as @{user.id}</p>
                     </div>
-                    <div className="three columns">
-                        <button id="login-button" onClick={() => deleteProfile(user.id)}>Delete my profile</button>
+                    <div className="four columns">
+                        <button onClick={() => deleteProfile(user.id)}>Delete my profile</button>
                     </div>
                 </div>
         )
     } else {
         return (
             <div className="loginSection">
-                <h4> Register: </h4>
+                <h5> Register: </h5>
                 <form onSubmit={formHandler}>
                         <div className="row">
                             <div className="three columns">
