@@ -129,30 +129,28 @@ apiRouter.put('/api/posts/:id', (request, response) => {
 })
 
 apiRouter.put('/api/users/:id', (request, response) => {
-    // const body = request.body
-    // console.log("PARAMS: ", request.params)
-    // console.log("PUT: ", body)
-    // console.log("FOLLOWS: ", body.follows)   
-    // const newUser = {
-    //     user: body.user,
-    //     timestamp: body.timestamp,
-    //     content: body.content,
-    //     likes: body.likes
-    // }
-    // console.log("IDDDDDD: ", request.params.id)
-    // Post.findByIdAndUpdate(request.params.id, newPost, {new: true})
-    // .then(result => {
-    //     response.json(result)
-    //     console.log("updated", result)
-    // })
-    // .catch(error => console.log("ERROR:", error))  
-
-
-    const id = request.params.id
-    let user = users.find(user => user.id === id)
-    user = user.follows.concat(id)
-    if (user) response.json(user)
-    else response.status(404).end()
+    const body = request.body
+    console.log("PARAMS: ", request.params)
+    console.log("PUT: ", body)
+    console.log("FOLLOWS: ", body.follows)   
+    const newUser = {
+      id: body.id,
+      passwordHash: body.password,
+      avatar: body.avatar,
+      follows: body.follows
+    }
+    console.log("IDDDDDD: ", request.params.id)
+    User.findOneAndUpdate({id : request.params.id}, newUser, {new: true})
+    .then(result => {
+        response.json(result)
+        console.log("updated", result)
+    })
+    .catch(error => console.log("ERROR:", error))  
+    // const id = request.params.id
+    // let user = users.find(user => user.id === id)
+    // user = user.follows.concat(id)
+    // if (user) response.json(user)
+    // else response.status(404).end()
 })
 
 apiRouter.delete('/api/posts/:id', (request, response, next) => {

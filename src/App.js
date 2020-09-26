@@ -62,7 +62,7 @@ const App = () => {
   const changeFollow = thing => {
     console.log("addFollow", thing)
     if ((thing.follows).includes(user.id) === false) {
-      const newThing = { ...thing, follows: thing.follows.push(user.id) }
+      const newThing = { ...thing, follows: thing.follows.concat(user.id) }
       console.log("updated vote in item", newThing)
       userService.update(newThing)
         .then(data => {
@@ -82,7 +82,7 @@ const App = () => {
           }
         )
     } else {
-      const newThing = { ...thing, follows: (thing.follows).filter(name => name !== user.id) }
+      const newThing = { ...thing, follows: thing.follows.filter(name => name !== user.id) }
       console.log("removed follow in item", newThing)
       userService.update(newThing)
         .then(data => {
