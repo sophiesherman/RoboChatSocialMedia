@@ -4,6 +4,11 @@ import DeleteButton from './DeleteButton'
 import UserAvatar from './UserAvatar'
 import UserLink from './UserLink'
 
+import {
+  BrowserRouter as Router,
+  Switch, Route, Link
+} from "react-router-dom"
+
 const Post = ({ loggedInUser, posts, changeLike, setPosts }) => {
     return (
       <div className="row">
@@ -20,13 +25,14 @@ const Post = ({ loggedInUser, posts, changeLike, setPosts }) => {
                   </div>
                   <div>
                     {post.content.split(" ").map((word, i) => {
+                      const end = word.substring(1)
                         if (word.startsWith("@")) {
                             return (
-                            <span key={word.index}><a href={"/users/" + word.substring(1)}>{word}</a> </span>
+                             <span key={word.index}><Link to={`/users/${end}`}>@{end}</Link> </span>
                             )
                         } else if (word.startsWith("#")) {
                               return (
-                              <span key={word.index}><a href={"/hashtag/" + word.substring(1)}>{word}</a> </span>
+                              <span key={word.index}><Link to={`/hashtag/${end}`}>@{end}</Link> </span>
                               )
                         } else {
                             return ( word + " ")

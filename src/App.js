@@ -157,9 +157,11 @@ const App = () => {
           <Switch>
             <Route path="/users/:id">
               <div className="row">
+                <Link to={`/users/${user.id}`}>
+                  <UserProfile status="other" loggedInUser={user} users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow} setPosts={setPosts}/>
+                </Link>
                 <LoginForm user={user} setUser={setUser} />
               </div>
-              <UserProfile status="other" loggedInUser={user} users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow} setPosts={setPosts}/>
             </Route>
             <Route path="/posts">
               <div className="row">

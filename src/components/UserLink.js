@@ -1,10 +1,14 @@
 import React from 'react';
 
+import {
+    BrowserRouter as Router,
+    Switch, Route, Link
+} from "react-router-dom"
+
 const UserLink = ({ user }) => {
-    const url = "/users/" + user    
     return (
         <div className="link">
-                <a href={url}>@{user}</a>
+                <Link to={`/users/${user}`}>@{user}</Link>
         </div>
     )
 }
