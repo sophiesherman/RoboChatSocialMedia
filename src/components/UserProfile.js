@@ -35,7 +35,6 @@ const UserProfile = ({ status, loggedInUser, users, posts, changeLike, changeFol
     const user = getUser(userId)
 
     if (status === "other") {
-        userId = loggedInUser.id
         console.log(userId)
         //If user profile exists
         if (user !== "User not found") {

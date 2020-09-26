@@ -5,6 +5,7 @@ import NewPostForm from './components/NewPostForm'
 import UserProfile from './components/UserProfile'
 import LoginForm from './components/LoginForm'
 import RegisterForm from './components/RegisterForm'
+import Users from './components/Users'
 import postService from './service/posts'
 import userService from './service/users'
 

@@ -134,3 +134,11 @@
 #userProfile{
     text-align: center;
 }
+
+#mini-avatar {
+    margin: auto;
+    background-color: #C0E2F0;
+    border-radius: 50%;
+    width: 70px;
+    display: block;
+}

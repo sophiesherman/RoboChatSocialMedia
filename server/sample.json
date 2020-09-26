@@ -3,7 +3,7 @@
     {
       "id": "Bobalooba",
       "password": "$2b$10$VgqOyXudoGsP4WTsJbyV9OXeGVdqzFqaLghTuf65.4xIYwblGyMrq",
-      "avatar": "http://robohash.org/bob",
+      "avatar": "http://robohash.org/bobalooba",
       "follows": [
         "Barfoo",
         "Jimbulator"
@@ -12,7 +12,7 @@
     {
       "id": "Jimbulator",
       "password": "$2b$10$B4PCXT6BPE79zTL4qFYARewiq0NAdH8E7UICdWQws6P.bKrMzuRHe",
-      "avatar": "http://robohash.org/jim",
+      "avatar": "http://robohash.org/jimbulator",
       "follows": [
         "Bean",
         "Contrary"
@@ -21,7 +21,7 @@
     {
       "id": "Contrary",
       "password": "$2b$10$G4K5NNOS7LK2AFJTy54DJeFKIZbnakScJKxX3c4AGOogb9SxnNzom",
-      "avatar": "http://robohash.org/mary",
+      "avatar": "http://robohash.org/contrary",
       "follows": [
         "Barfoo"
       ]
@@ -29,7 +29,7 @@
     {
       "id": "Bean",
       "password": "$2b$10$TdJCIeDd88kIj91gzfsV/.JF45afwiJIFgexgJc6PdCeDlgVXyaXG",
-      "avatar": "http://robohash.org/jb",
+      "avatar": "http://robohash.org/bean",
       "follows": [
         "Bobalooba"
       ]
@@ -45,7 +45,7 @@
     {
       "id": "Barfoo",
       "password": "$2b$10$6h4CcnySAVl2Z0BAfIxIkOu6M7K0OrdyZD85Ib5VOcwTUZNTlQ53y",
-      "avatar": "http://robohash.org/bar",
+      "avatar": "http://robohash.org/barfoo",
       "follows": [
         "Jimbulator",
         "Bean"
