@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Post from './components/Post'
+import Home from './components/Home'
 import NewPostForm from './components/NewPostForm'
 import UserProfile from './components/UserProfile'
 import LoginForm from './components/LoginForm'
@@ -30,9 +31,6 @@ const App = () => {
           )
           setPosts(newThings)
         })
-        .then(() => {
-          console.log("the next then")
-        })
         .catch(
           (error) => {
             alert("There was an error!")
@@ -48,9 +46,6 @@ const App = () => {
           )
           setPosts(newThings)
         })
-        .then(() => {
-          console.log("the next then")
-        })
         .catch(
           (error) => {
             alert("There was an error!")
@@ -60,21 +55,15 @@ const App = () => {
   }
 
   const changeFollow = thing => {
-    console.log("addFollow", thing)
     if ((thing.follows).includes(user.id) === false) {
       const newThing = { ...thing, follows: thing.follows.concat(user.id) }
-      console.log("updated vote in item", newThing)
       userService.update(newThing)
         .then(data => {
           // replace old thing in things array with newthing - match on id
-          console.log("got response", data)
           const newThings = users.map(
             thing => thing.id !== data.id ? thing : data
           )
           setUsers(newThings)
-        })
-        .then(() => {
-          console.log("the next then")
         })
         .catch(
           (error) => {
@@ -83,18 +72,13 @@ const App = () => {
         )
     } else {
       const newThing = { ...thing, follows: thing.follows.filter(name => name !== user.id) }
-      console.log("removed follow in item", newThing)
       userService.update(newThing)
         .then(data => {
           // replace old thing in things array with newthing - match on id
-          console.log("got response", data)
           const newThings = users.map(
             thing => thing.id !== data.id ? thing : data
           )
           setUsers(newThings)
-        })
-        .then(() => {
-          console.log(users)
         })
         .catch(
           (error) => {
@@ -116,15 +100,18 @@ const App = () => {
         setUsers(initialPosts)
       })
   }, [])
+  
+  const sortPosts = (posts) => {
+    // Sorting to show most recent first
+    posts.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+  }
 
-  // Sorting to show most recent first
-  posts.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+  sortPosts(posts)
 
   const addPost = (newPost) => {
     postService
       .create({ user: user.id, content: newPost }, user)
       .then(data => {
-        console.log("new post: ", data)
         setPosts(posts.concat(data))
       })
       .catch(
@@ -145,7 +132,7 @@ const App = () => {
             <div className="eight columns">
               <nav className="topNav">
                 <Link className="navItem" to="/">Home</Link>
-                <Link className="navItem" to="/posts ">All Posts</Link>
+                <Link className="navItem" to="/posts">All Posts</Link>
                 <Link className="navItem" to="/users">Users</Link>
                 <Link className="navItem" to="/login">Login</Link>
                 <Link className="navItem" to="/my-profile">Profile</Link>
@@ -162,6 +149,7 @@ const App = () => {
               <UserProfile status="other" loggedInUser={user} users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow} setPosts={setPosts}/>
             </Route>
             <Route path="/posts">
+              <h5> All Posts </h5>
               <div className="row">
                 <LoginForm user={user} setUser={setUser} />
               </div>
@@ -191,8 +179,8 @@ const App = () => {
               <div className="row">
                 <LoginForm user={user} setUser={setUser} />
               </div>
-              <NewPostForm user={user} updateFn={addPost} />
-              <Post loggedInUser={user} posts={posts} changeLike={changeLike} setPosts={setPosts}/>
+              <Home users={users} loggedInUser={user} posts={posts} changeLike={changeLike} setPosts={setPosts} addPost={addPost} sortPosts={sortPosts}/>
+              { /* <Post loggedInUser={user} posts={posts} changeLike={changeLike} setPosts={setPosts}/> */ }
             </Route>
           </Switch>
         </div>

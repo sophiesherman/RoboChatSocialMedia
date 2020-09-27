@@ -6,7 +6,6 @@ const NewPostForm = ({user, updateFn}) => {
     const [newPost, setNewPost] = useState(initialState)
 
     const handlePostIdChange = (event) => {
-        console.log(event.target.value)
         setNewPost(event.target.value)
     }
 

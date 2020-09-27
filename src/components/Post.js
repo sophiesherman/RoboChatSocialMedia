@@ -23,8 +23,8 @@ const Post = ({ loggedInUser, posts, changeLike, setPosts }) => {
                   <div>
                     <b><UserLink user={post.user}/></b> <i>{post.timestamp}</i>
                   </div>
-                  <div>
-                    {post.content.split(" ").map((word, i) => {
+                  <div id="content">
+                    {post.content.split(" ").map((word) => {
                       const end = word.substring(1)
                         if (word.startsWith("@")) {
                             return (
@@ -32,7 +32,7 @@ const Post = ({ loggedInUser, posts, changeLike, setPosts }) => {
                             )
                         } else if (word.startsWith("#")) {
                               return (
-                              <span key={word.index}><Link to={`/hashtag/${end}`}>@{end}</Link> </span>
+                              <span key={word.index}><Link to={`/hashtag/${end}`}>#{end}</Link> </span>
                               )
                         } else {
                             return ( word + " ")

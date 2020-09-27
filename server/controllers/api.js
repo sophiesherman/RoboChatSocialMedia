@@ -35,8 +35,6 @@ apiRouter.get('/', (request, response) => {
 })
 
 apiRouter.get('/api/posts', (request, response) => {
-  console.log("GOT")
-
   Post.find({})
   .then(result => {
         response.json(result)
@@ -45,7 +43,6 @@ apiRouter.get('/api/posts', (request, response) => {
 })
 
 apiRouter.get('/api/users', async (request, response) => {
-    console.log("GOT")
     const users = await User.find({})
     response.json(users)
   })
@@ -66,9 +63,7 @@ apiRouter.get('/api/users/:id', (request, response) => {
 })
 
 apiRouter.post('/api/posts', (request, response) => {
-    console.log("POST")
     const token = getTokenFrom(request)
-    console.log("Token ", token)
     const decodedToken = jwt.verify(token, SECRET)
     if (!token || !decodedToken.id) {
         return response.status(401).json({ error: 'token missing or invalid' })
@@ -93,7 +88,6 @@ apiRouter.post('/api/posts', (request, response) => {
 })
 
 apiRouter.post('/api/users', async (request, response) => {
-    console.log("POST USER")
     const body = request.body
 
     const saltRounds = 10
@@ -130,20 +124,15 @@ apiRouter.put('/api/posts/:id', (request, response) => {
 
 apiRouter.put('/api/users/:id', (request, response) => {
     const body = request.body
-    console.log("PARAMS: ", request.params)
-    console.log("PUT: ", body)
-    console.log("FOLLOWS: ", body.follows)   
     const newUser = {
       id: body.id,
       passwordHash: body.password,
       avatar: body.avatar,
       follows: body.follows
     }
-    console.log("IDDDDDD: ", request.params.id)
     User.findOneAndUpdate({id : request.params.id}, newUser, {new: true})
     .then(result => {
         response.json(result)
-        console.log("updated", result)
     })
     .catch(error => console.log("ERROR:", error))  
 })

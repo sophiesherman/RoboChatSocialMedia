@@ -9,11 +9,13 @@ import {
 
 const UserProfile = ({ status, loggedInUser, users, posts, changeLike, changeFollow, setPosts }) => {
     let userId = useParams().id
-    console.log(userId)
+    let logged = "none"
+    if (loggedInUser !== null){
+        logged = loggedInUser.id
+    }
 
-    if (status === "personal" && loggedInUser !== null) {
+    if (status === "personal" && logged !== "none") {
         userId = loggedInUser.id
-        console.log(userId)
     }
 
     const getUser = (id) => {
@@ -34,7 +36,13 @@ const UserProfile = ({ status, loggedInUser, users, posts, changeLike, changeFol
 
     const user = getUser(userId)
 
-    if (status === "other") {
+    if (status === "personal" && logged === "none") {
+        return (
+            <div>
+                <p><i> Please login or register to view your profile </i></p>
+            </div>
+        )
+    } else if (status === "other" && logged !== userId) {
         //If user profile exists
         if (user !== "User not found") {
             const id = user[0].id
@@ -76,9 +84,8 @@ const UserProfile = ({ status, loggedInUser, users, posts, changeLike, changeFol
                 </div>
             )
         }
-    } else if (status === "personal" && loggedInUser !== null) {
+    } else if ((status === "personal" && logged !== "other") || logged === userId) {
         userId = loggedInUser.id
-        console.log(userId)
         //If user profile exists
         if (user !== "User not found") {
             const id = user[0].id
@@ -108,7 +115,7 @@ const UserProfile = ({ status, loggedInUser, users, posts, changeLike, changeFol
                         </div>
                     </div>
                     <div className="eight columns">
-                        <Post status={status} loggedInUser={loggedInUser} posts={userPosts} changeLike={changeLike} />
+                        <Post status={status} loggedInUser={loggedInUser} posts={userPosts} changeLike={changeLike} setPosts={setPosts}/>
                     </div>
                 </div>
             )
@@ -120,12 +127,6 @@ const UserProfile = ({ status, loggedInUser, users, posts, changeLike, changeFol
             )
         }
             
-    } else if (status === "personal" && loggedInUser === null) {
-            return (
-                <div>
-                    <p><i> Please login or register to view your profile </i></p>
-                </div>
-            )
     } else {
             return (
                 <div>

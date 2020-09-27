@@ -7,9 +7,9 @@ import {
 
 const UserLink = ({ user }) => {
     return (
-        <div className="link">
+        <b className="link">
                 <Link to={`/users/${user}`}>@{user}</Link>
-        </div>
+        </b>
     )
 }
 
