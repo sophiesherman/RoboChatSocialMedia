@@ -11,7 +11,7 @@ const RegisterForm = ({user, setUser, setUsers}) => {
       userService.register({username, password})
         .then(data => {
             setUser(data)
-            alert("You may now refresh the page and login with your new account")
+            alert("Please now return to the home page, refresh the page and login with your new account to load the data")
         })
         .catch(error => {
             alert("Use a different username or password")

@@ -94,7 +94,7 @@ apiRouter.post('/api/users', async (request, response) => {
     const passwordHash = await bcrypt.hash(body.password, saltRounds)
 
     const username = (body.username).toLowerCase()
-    const avatar = "http://robohash.org/" + username
+    const avatar = "https://robohash.org/" + username
     const newUser = new User({
         id: body.username,
         passwordHash: passwordHash,
