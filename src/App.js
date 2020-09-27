@@ -134,8 +134,8 @@ const App = () => {
                 <Link className="navItem" to="/">Home</Link>
                 <Link className="navItem" to="/posts">All Posts</Link>
                 <Link className="navItem" to="/users">Users</Link>
-                <Link className="navItem" to="/login">Login</Link>
-                <Link className="navItem" to="/my-profile">Profile</Link>
+                <Link className="navItem" to="/profile">Profile</Link>
+                {/* <Link className="navItem" to="/my-profile">Profile</Link> */}
               </nav>
             </div>
           </div>
@@ -149,10 +149,10 @@ const App = () => {
               <UserProfile status="other" loggedInUser={user} users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow} setPosts={setPosts}/>
             </Route>
             <Route path="/posts">
-              <h5> All Posts </h5>
               <div className="row">
                 <LoginForm user={user} setUser={setUser} />
               </div>
+              <h5> All Posts </h5>
               <NewPostForm user={user} updateFn={addPost} />
               <Post loggedInUser={user} posts={posts} changeLike={changeLike} setPosts={setPosts}/>
             </Route>
@@ -164,23 +164,25 @@ const App = () => {
                 <Users users={users}/>
               </div>
             </Route>
-            <Route path="/login">
+            <Route path="/profile">
               <div className="loginSection">
                 <LoginForm user={user} setUser={setUser} />
                 <RegisterForm user={user} setUser={setUser} setUsers={setUsers}/>
               </div>
+              <div>
+              <UserProfile status="personal" loggedInUser={user} users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow} setPosts={setPosts}/>
+              </div>
             </Route>
-            <Route path="/my-profile">
+            {/* <Route path="/my-profile">
               <div>
                 <UserProfile status="personal" loggedInUser={user} users={users} posts={posts} changeLike={changeLike} changeFollow={changeFollow} setPosts={setPosts}/>
               </div>
-            </Route> 
+            </Route>  */}
             <Route path="/">
               <div className="row">
                 <LoginForm user={user} setUser={setUser} />
               </div>
               <Home users={users} loggedInUser={user} posts={posts} changeLike={changeLike} setPosts={setPosts} addPost={addPost} sortPosts={sortPosts}/>
-              { /* <Post loggedInUser={user} posts={posts} changeLike={changeLike} setPosts={setPosts}/> */ }
             </Route>
           </Switch>
         </div>

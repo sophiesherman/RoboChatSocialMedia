@@ -17,7 +17,7 @@ const Post = ({ loggedInUser, posts, changeLike, setPosts }) => {
             <li id="individual-post" key={post.id}> 
             <div className="row">
                 <div className="two columns">
-                  <UserAvatar post={post}/>
+                  <UserAvatar user={post.user}/>
                 </div>
                 <div className="eight columns"> 
                   <div>
@@ -28,11 +28,11 @@ const Post = ({ loggedInUser, posts, changeLike, setPosts }) => {
                       const end = word.substring(1)
                         if (word.startsWith("@")) {
                             return (
-                             <span key={word.index}><Link to={`/users/${end}`}>@{end}</Link> </span>
+                             <span key={`word.index${word}`}><Link to={`/users/${end}`}>@{end}</Link> </span>
                             )
                         } else if (word.startsWith("#")) {
                               return (
-                              <span key={word.index}><Link to={`/hashtag/${end}`}>#{end}</Link> </span>
+                              <span key={`word.index${word}`}><Link to={`/hashtag/${end}`}>#{end}</Link> </span>
                               )
                         } else {
                             return ( word + " ")

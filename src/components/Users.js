@@ -4,7 +4,7 @@ import UserLink from './UserLink'
 const Users = ({ users, loggedInUser, setUser }) => {
     return (
         <div className="row">
-          <h5> All Users </h5>
+          <h5> RoboChat Users </h5>
           <ul>
             {users.map((user) => (
               <li id="individual-user" key={user.id}> 

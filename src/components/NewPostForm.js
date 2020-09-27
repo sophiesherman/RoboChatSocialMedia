@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
 
+import {
+  BrowserRouter as Router,
+  Switch, Route, Link
+} from "react-router-dom"
+
+
 const NewPostForm = ({user, updateFn}) => {
     const initialState = ''
 
@@ -36,7 +42,7 @@ const NewPostForm = ({user, updateFn}) => {
       )
     } else {
       return (
-        <p className="pleaseLogin"><i>Please login if you wish to post on RoboChat</i></p>
+        <p className="pleaseLogin"><i><Link to={`/profile`}>Please login or register if you wish to post on RoboChat</Link></i></p>
       )
     }
   
