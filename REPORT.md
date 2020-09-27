@@ -9,7 +9,7 @@ KEY:
 
 # This report outlines:
 * Details of where my application is hosted and how you can access it
-* A description of the main features of the application and any relevant notes on how I implemented them
+* A description of the main features of the application and any relevant notes on how I implemented them, what files they connect to and what they do
 * My reflective comments on what I have learned during this assignment
 
 
