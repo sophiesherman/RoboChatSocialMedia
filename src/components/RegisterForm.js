@@ -21,11 +21,16 @@ const RegisterForm = ({user, setUser, setUsers}) => {
     const deleteProfile = (user) => {
         userService.del(user)
         .then(data => {
-            setUsers(data)
-            alert("Your profile has been deleted successfully")
-            setUser(null)
-        }
-        )
+            userService.getAll()
+            .then(data => {
+                setUsers(data)
+                setUser(null)
+                alert("Your profile has been deleted successfully")
+            })
+            .catch(error => {
+                alert("Cannot delete your profile")
+            })
+        })
         .catch(error => {
             alert("Cannot delete your profile")
         })

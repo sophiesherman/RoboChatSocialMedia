@@ -3,6 +3,11 @@ import Post from './Post'
 import FollowButton from './FollowButton'
 
 import {
+    BrowserRouter as Router,
+    Switch, Route, Link
+  } from "react-router-dom"
+
+import {
     // ...
     useParams
 } from "react-router-dom"
@@ -39,7 +44,7 @@ const UserProfile = ({ status, loggedInUser, users, posts, changeLike, changeFol
     if (status === "personal" && logged === "none") {
         return (
             <div>
-                 <p className="pleaseLogin"><i>Please login or register to view your profile</i></p>
+                 <p><i><Link to={`/login`}>Please login or register to view your profile</Link> </i></p>
             </div>
         )
     } else if (status === "other" && logged !== userId) {
