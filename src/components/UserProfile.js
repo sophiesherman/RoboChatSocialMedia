@@ -3,11 +3,6 @@ import Post from './Post'
 import FollowButton from './FollowButton'
 
 import {
-    BrowserRouter as Router,
-    Switch, Route, Link
-  } from "react-router-dom"
-
-import {
     // ...
     useParams
 } from "react-router-dom"
