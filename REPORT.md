@@ -1,5 +1,6 @@
 # COMP3120 INDIVIDUAL WEB DEVELOPMENT PROJECT
 __SOPHIE SHERMAN: 45407517__
+NOTE: This report was is created with a .md file in the application and can be viewed in the GitHub repository ‘REPORT.md’
 
 KEY:
 *features* 
