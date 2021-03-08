@@ -205,12 +205,3 @@ The future development of the application would be beneficial to switch to a pai
 For future project I now understand the basics of a social media applications, which I was curious about before, however, did not have the knowledge I do today.
 
 I would love to use these skills to create my own form of social media platform, of which I plan on creating in the form of an mobile App and this assignment has pushed my one step closer to that goal. I greatly appreciate what this assignment has taught me and I cannot wait to create my very own application someday.
-
-The application could most definitely implement more security features and while this is not my forte, I look forward to learning more about security. 
-
-The future development of the application would be beneficial to switch to a paid version of a database store to hold more data.
-
-# How this might be applied in future projects
-For future project I now understand the basics of a social media applications, which I was curious about before, however, did not have the knowledge I do today.
-
-I would love to use these skills to create my own form of social media platform, of which I plan on creating in the form of an mobile App and this assignment has pushed my one step closer to that goal. I greatly appreciate what this assignment has taught me and I cannot wait to create my very own application someday.
